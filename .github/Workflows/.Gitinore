@@ -1,0 +1,47 @@
+# ==========================================
+# Rust & Cargo
+# ==========================================
+/target/
+**/*.rs.bk
+
+# ==========================================
+# Python & Packaging
+# ==========================================
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.dylib
+*.dll
+*.egg-info/
+*.egg
+.eggs/
+/dist/
+/build/
+
+# Python Virtual Environments
+.venv/
+venv/
+ENV/
+env/
+.pytest_cache/
+
+# ==========================================
+# Maturin / Android Cross-Compilation
+# ==========================================
+/android_libs/
+*.whl
+
+# ==========================================
+# IDEs & Code Editors
+# ==========================================
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# ==========================================
+# Operating System Junk
+# ==========================================
+.DS_Store
+Thumbs.db
