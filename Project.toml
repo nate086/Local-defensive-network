@@ -1,0 +1,16 @@
+[build-system]
+requires = ["maturin>=1.4,<2.0"]
+build-backend = "maturin"
+
+[project]
+name = "local-defense-network"
+version = "0.1.0"
+description = "Sub-millisecond deterministic execution gate for AI agent tools"
+readme = "README.md"
+requires-python = ">=3.8"
+license = { text = "MIT" }
+
+[tool.maturin]
+features = ["pyo3/extension-module"]
+python-source = "python"
+module-name = "ldn_core"
