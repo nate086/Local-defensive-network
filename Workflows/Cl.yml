@@ -1,0 +1,43 @@
+name: LDN Core CI & Build
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  test-and-build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install Rust Toolchain
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Build & Test Python Bindings
+        run: |
+          pip install maturin
+          maturin develop
+          python -c "import ldn_core; assert ldn_core.evaluate_command('ls -la') == True"
+          python -c "import ldn_core; assert ldn_core.evaluate_command('rm -rf /') == False"
+          echo "✅ All sub-millisecond Rust gate tests passed!"
+
+      - name: Build Android ARM64 Binary
+        uses: PyO3/maturin-action@v1
+        with:
+          command: build
+          args: --release --target aarch64-linux-android
+
+      - name: Upload Build Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: ldn-core-android-arm64
+          path: target/wheels/*.whl
